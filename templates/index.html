@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MULE CLASSES | Premium Tuition for Nursery to 8th</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">MULE CLASSES</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#courses">Courses</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#contact" class="btn-primary">Contact Now</a></li>
+        </ul>
+        <div class="menu-toggle"><i class="fas fa-bars"></i></div>
+    </nav>
+
+    <header id="home" class="hero fade-in">
+        <div class="hero-content">
+            <h1>Building Strong Foundations for a <span class="highlight">Brighter Future</span></h1>
+            <p>Empowering students from Nursery to Class 8th with conceptual understanding and engaging learning designed to foster academic excellence.</p>
+            <div class="action-buttons">
+                <a href="#contact" class="btn-primary-large">Get Assessed <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="glass-card floating">
+                <i class="fas fa-graduation-cap icon-glow"></i>
+                <h3>10+ Years</h3>
+                <p>Teaching Excellence</p>
+            </div>
+            <div class="glass-card floating delay">
+                <i class="fas fa-star icon-glow"></i>
+                <h3>SSC & CBSE</h3>
+                <p>Boards Covered</p>
+            </div>
+        </div>
+    </header>
+
+
+
+    <section id="courses" class="courses-section hidden">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our <span class="highlight">Programs</span></h2>
+                <div class="underline"></div>
+            </div>
+            <div class="courses-grid">
+                <!-- Module 1 -->
+                <div class="course-card">
+                    <div class="card-icon"><i class="fas fa-seedling"></i></div>
+                    <h3>Early Foundations</h3>
+                    <p class="grades">1. Nursery / Junior KG / Senior KG</p>
+                    <ul class="highlights" style="margin-bottom: 15px;">
+                        <li><i class="fas fa-circle" style="font-size: 8px; color: var(--accent-secondary);"></i> Alphabet (A–Z writing & recognition)</li>
+                        <li><i class="fas fa-circle" style="font-size: 8px; color: var(--accent-secondary);"></i> Numbers (1–100)</li>
+                        <li><i class="fas fa-circle" style="font-size: 8px; color: var(--accent-secondary);"></i> Rhymes & storytelling</li>
+                        <li><i class="fas fa-circle" style="font-size: 8px; color: var(--accent-secondary);"></i> Basic drawing & coloring</li>
+                        <li><i class="fas fa-circle" style="font-size: 8px; color: var(--accent-secondary);"></i> Speaking skills (basic English words)</li>
+                    </ul>
+                    <p style="color: var(--text-primary); font-weight: 500;">👉 <strong>Focus:</strong> Fun learning + basics</p>
+                </div>
+
+                <!-- Module 2 -->
+                <div class="course-card">
+                    <div class="card-icon"><i class="fas fa-pencil-alt"></i></div>
+                    <h3>Lower Primary</h3>
+                    <p class="grades">2. Class 1st – 2nd</p>
+                    <ul class="highlights" style="margin-bottom: 15px;">
+                        <li><i class="fas fa-circle" style="font-size: 8px; color: var(--accent-secondary);"></i> Reading & writing improvement</li>
+                        <li><i class="fas fa-circle" style="font-size: 8px; color: var(--accent-secondary);"></i> Basic grammar (English)</li>
+                        <li><i class="fas fa-circle" style="font-size: 8px; color: var(--accent-secondary);"></i> Addition, subtraction (Maths)</li>
+                        <li><i class="fas fa-circle" style="font-size: 8px; color: var(--accent-secondary);"></i> Handwriting practice</li>
+                        <li><i class="fas fa-circle" style="font-size: 8px; color: var(--accent-secondary);"></i> General knowledge</li>
+                    </ul>
+                    <p style="color: var(--text-primary); font-weight: 500;">👉 <strong>Focus:</strong> Strong foundation</p>
+                </div>
+
+                <!-- Module 3 -->
+                <div class="course-card">
+                    <div class="card-icon"><i class="fas fa-book-reader"></i></div>
+                    <h3>Upper Primary</h3>
+                    <p class="grades">3. Class 3rd – 5th</p>
+                    <ul class="highlights" style="margin-bottom: 15px;">
+                        <li><i class="fas fa-circle" style="font-size: 8px; color: var(--accent-secondary);"></i> Grammar (tenses, sentence formation)</li>
+                        <li><i class="fas fa-circle" style="font-size: 8px; color: var(--accent-secondary);"></i> Maths (multiplication, division, word problems)</li>
+                        <li><i class="fas fa-circle" style="font-size: 8px; color: var(--accent-secondary);"></i> EVS / Science basics</li>
+                        <li><i class="fas fa-circle" style="font-size: 8px; color: var(--accent-secondary);"></i> Reading comprehension</li>
+                        <li><i class="fas fa-circle" style="font-size: 8px; color: var(--accent-secondary);"></i> Regular tests & revision</li>
+                    </ul>
+                    <p style="color: var(--text-primary); font-weight: 500;">👉 <strong>Focus:</strong> Concept clarity</p>
+                </div>
+
+                <!-- Module 4 -->
+                <div class="course-card">
+                    <div class="card-icon"><i class="fas fa-microscope"></i></div>
+                    <h3>Middle School</h3>
+                    <p class="grades">4. Class 6th – 8th</p>
+                    <ul class="highlights" style="margin-bottom: 15px;">
+                        <li><i class="fas fa-circle" style="font-size: 8px; color: var(--accent-secondary);"></i> Advanced Maths (fractions, algebra basics)</li>
+                        <li><i class="fas fa-circle" style="font-size: 8px; color: var(--accent-secondary);"></i> Science (Physics, Chemistry basics)</li>
+                        <li><i class="fas fa-circle" style="font-size: 8px; color: var(--accent-secondary);"></i> English grammar & writing skills</li>
+                        <li><i class="fas fa-circle" style="font-size: 8px; color: var(--accent-secondary);"></i> Social Studies (History, Geography)</li>
+                        <li><i class="fas fa-circle" style="font-size: 8px; color: var(--accent-secondary);"></i> Weekly tests & doubt solving</li>
+                    </ul>
+                    <p style="color: var(--text-primary); font-weight: 500;">👉 <strong>Focus:</strong> Exam preparation + understanding</p>
+                </div>
+
+                <!-- Module 5 -->
+                <div class="course-card featured" style="grid-column: 1 / -1; display: flex; flex-direction: column; align-items: center; text-align: center;">
+                    <span class="badge">Must Highlight</span>
+                    <div class="card-icon"><i class="fas fa-trophy"></i></div>
+                    <h3>Scholarship & Olympiad</h3>
+                    <p class="grades">5. Premium Add-On</p>
+                    <div style="text-align: left; margin: 20px auto; max-width: 500px;">
+                        <ul class="highlights" style="margin-bottom: 15px;">
+                            <li><i class="fas fa-check-circle" style="color: var(--accent-primary);"></i> Logical reasoning & Mental ability questions</li>
+                            <li><i class="fas fa-check-circle" style="color: var(--accent-primary);"></i> Advanced Maths problems</li>
+                            <li><i class="fas fa-check-circle" style="color: var(--accent-primary);"></i> Practice test series</li>
+                            <li><i class="fas fa-check-circle" style="color: var(--accent-primary);"></i> Previous year question papers</li>
+                        </ul>
+                    </div>
+                    <p style="color: var(--accent-secondary); font-weight: 800; font-size: 18px;">👉 HUGE Advantage: Sets students miles ahead of the competition.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="gallery-section hidden">
+        <div class="container">
+            <div class="section-title">
+                <h2>Life at <span class="highlight">MULE CLASSES</span></h2>
+                <div class="underline"></div>
+            </div>
+            <div class="gallery-grid">
+                {% if gallery_images %}
+                    {% for img in gallery_images %}
+                    <div class="gallery-item"><img src="{{ url_for('static', filename='gallery/' ~ img) }}" alt="MULE CLASSES Event"></div>
+                    {% endfor %}
+                {% else %}
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=400&auto=format&fit=crop" alt="Class Activity"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=400&auto=format&fit=crop" alt="Student Celebration"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1546410531-bea4caa55620?q=80&w=400&auto=format&fit=crop" alt="Olympiad Prep"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?q=80&w=400&auto=format&fit=crop" alt="Interactive Learning"></div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section hidden">
+        <div class="container">
+            <div class="contact-wrapper">
+                <div class="contact-info">
+                    <h2>Get In <span class="highlight">Touch</span></h2>
+                    <p>Ready to give your child the best learning experience? Contact us to book a free demo class today!</p>
+                    <div class="info-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <div>
+                            <h4>Phone</h4>
+                            <p>+91 7066078077</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>rahulchangire@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Location</h4>
+                            <p>Parli Vaijnath, Beed, Maharashtra, India</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form glass-form">
+                    {% if success %}
+                    <div class="success-message">
+                        <i class="fas fa-check-circle"></i>
+                        <p>Thank you! Your inquiry has been submitted. We will contact you soon.</p>
+                    </div>
+                    {% else %}
+                    <h3>Enroll Now</h3>
+                    <form action="/" method="POST">
+                        <div class="form-group">
+                            <input type="text" name="name" placeholder="Parent or Student Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" name="phone" placeholder="Phone Number" required>
+                        </div>
+                        <div class="form-group">
+                            <select name="class" required>
+                                <option value="" disabled selected>Select Class</option>
+                                <option value="Nursery-UKG">Nursery to UKG</option>
+                                <option value="1-5">Class 1st to 5th</option>
+                                <option value="6-8">Class 6th to 8th</option>
+                                <option value="Special">Scholarship / Olympiad</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn-submit">Submit Inquiry <i class="fas fa-paper-plane"></i></button>
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h2>MULE CLASSES</h2>
+                <p>Building futures through conceptual clarity.</p>
+            </div>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="https://wa.me/917066078077" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 MULE CLASSES. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/917066078077" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+        // Scroll Animation Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        const hiddenElements = document.querySelectorAll('.hidden');
+        hiddenElements.forEach(el => observer.observe(el));
+
+        // Mobile Menu Toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

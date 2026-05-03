@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MULE CLASSES | Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Inter:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0B0A10;
+            color: #fff;
+            margin: 0;
+            padding: 40px;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .panel {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 40px;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        input[type="file"] {
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            background: #8C52FF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        th {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .img-grid {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .img-card {
+            position: relative;
+            width: 150px;
+        }
+
+        .img-card img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            display: block;
+        }
+
+        .btn-delete {
+            width: 100%;
+            margin-top: 5px;
+            background: #E63946;
+            padding: 8px;
+            font-size: 14px;
+        }
+
+        .btn-delete:hover {
+            background: #D62828;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Admin Dashboard</h1>
+        <div class="panel">
+            <h2>Upload Gallery Photos</h2>
+            <p>Select an image to upload. It will immediately show up on the public website.</p>
+            <form action="/admin" method="POST" enctype="multipart/form-data">
+                <input type="file" name="file" accept="image/*" required>
+                <button type="submit" class="btn">Upload Photo</button>
+            </form>
+            <div class="img-grid">
+                {% for img in images %}
+                <div class="img-card">
+                    <img src="{{ url_for('static', filename='gallery/' + img) }}" alt="Gallery Image">
+                    <form action="{{ url_for('delete_image', filename=img) }}" method="POST" style="margin-top: 5px;">
+                        <button type="submit" class="btn btn-delete">Delete</button>
+                    </form>
+                </div>
+                {% else %}
+                <p>No custom images uploaded yet.</p>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="panel">
+            <h2>Student Inquiries</h2>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Class</th>
+                    <th>Date</th>
+                </tr>
+                {% for inq in inquiries %}
+                <tr>
+                    <td>{{ inq[0] }}</td>
+                    <td>{{ inq[1] }}</td>
+                    <td>{{ inq[2] }}</td>
+                    <td>{{ inq[3] }}</td>
+                    <td>{{ inq[4] }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="5">No inquiries yet.</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>
