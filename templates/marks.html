@@ -1,0 +1,45 @@
+{% extends "student_base.html" %}
+
+{% block title %}Test Marks{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h2><i class="fas fa-star" style="color: #9f7aea;"></i> Test Marks</h2>
+        <p>Your academic performance</p>
+    </div>
+    
+    {% if marks %}
+    <table>
+        <thead>
+            <tr>
+                <th>Test Name</th>
+                <th>Date</th>
+                <th>Score</th>
+                <th>Max Score</th>
+                <th>Percentage</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for mark in marks %}
+            <tr>
+                <td><strong>{{ mark[0] }}</strong></td>
+                <td>{{ mark[3] }}</td>
+                <td style="color: #4a5568; font-weight: 600;">{{ mark[1] }}</td>
+                <td style="color: #a0aec0;">{{ mark[2] }}</td>
+                <td>
+                    {% set percent = (mark[1] / mark[2] * 100) %}
+                    <div style="background: #edf2f7; width: 100%; height: 8px; border-radius: 4px; overflow: hidden; margin-bottom: 4px;">
+                        <div style="background: {% if percent >= 80 %}#48bb78{% elif percent >= 50 %}#ed8936{% else %}#e53e3e{% endif %}; width: {{ percent }}%; height: 100%;"></div>
+                    </div>
+                    <span style="font-size: 0.85rem; color: #4a5568;">{{ "%.1f"|format(percent) }}%</span>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p style="text-align: center; color: #718096; padding: 2rem;">No test marks uploaded yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

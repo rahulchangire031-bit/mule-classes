@@ -1,0 +1,42 @@
+{% extends "student_base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h2>Welcome back, {{ name }}!</h2>
+        <p>Class: {{ student_class }}</p>
+    </div>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+        <div class="card" style="background: #e9f5ff; text-align: center; border: 1px solid #bce0fd;">
+            <i class="fas fa-book" style="font-size: 3rem; color: #4a90e2; margin-bottom: 1rem;"></i>
+            <h3>Homework</h3>
+            <p>Check your latest assignments.</p>
+            <a href="{{ url_for('homework') }}" style="display: inline-block; margin-top: 1rem; padding: 8px 16px; background: #4a90e2; color: white; text-decoration: none; border-radius: 5px;">View</a>
+        </div>
+        
+        <div class="card" style="background: #f0fff4; text-align: center; border: 1px solid #c6f6d5;">
+            <i class="fas fa-calendar-check" style="font-size: 3rem; color: #48bb78; margin-bottom: 1rem;"></i>
+            <h3>Attendance</h3>
+            <p>View your presence record.</p>
+            <a href="{{ url_for('attendance') }}" style="display: inline-block; margin-top: 1rem; padding: 8px 16px; background: #48bb78; color: white; text-decoration: none; border-radius: 5px;">View</a>
+        </div>
+
+        <div class="card" style="background: #fffaf0; text-align: center; border: 1px solid #feebc8;">
+            <i class="fas fa-file-alt" style="font-size: 3rem; color: #ed8936; margin-bottom: 1rem;"></i>
+            <h3>Notes</h3>
+            <p>Download study materials.</p>
+            <a href="{{ url_for('notes') }}" style="display: inline-block; margin-top: 1rem; padding: 8px 16px; background: #ed8936; color: white; text-decoration: none; border-radius: 5px;">View</a>
+        </div>
+
+        <div class="card" style="background: #fbf0ff; text-align: center; border: 1px solid #e9d8fd;">
+            <i class="fas fa-star" style="font-size: 3rem; color: #9f7aea; margin-bottom: 1rem;"></i>
+            <h3>Test Marks</h3>
+            <p>Check your academic progress.</p>
+            <a href="{{ url_for('marks') }}" style="display: inline-block; margin-top: 1rem; padding: 8px 16px; background: #9f7aea; color: white; text-decoration: none; border-radius: 5px;">View</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

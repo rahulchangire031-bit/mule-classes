@@ -1,0 +1,41 @@
+{% extends "student_base.html" %}
+
+{% block title %}Attendance{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h2><i class="fas fa-calendar-check" style="color: #48bb78;"></i> Attendance Records</h2>
+        <p>Your recent presence</p>
+    </div>
+    
+    {% if records %}
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for rec in records %}
+            <tr>
+                <td>{{ rec[0] }}</td>
+                <td>
+                    {% if rec[1]|lower == 'present' %}
+                    <span style="color: white; background: #48bb78; padding: 4px 8px; border-radius: 4px; font-weight: 500; font-size: 0.85rem;">Present</span>
+                    {% elif rec[1]|lower == 'absent' %}
+                    <span style="color: white; background: #e53e3e; padding: 4px 8px; border-radius: 4px; font-weight: 500; font-size: 0.85rem;">Absent</span>
+                    {% else %}
+                    <span style="color: #4a5568; background: #edf2f7; padding: 4px 8px; border-radius: 4px; font-weight: 500; font-size: 0.85rem;">{{ rec[1] }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p style="text-align: center; color: #718096; padding: 2rem;">No attendance records found.</p>
+    {% endif %}
+</div>
+{% endblock %}

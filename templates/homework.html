@@ -1,0 +1,43 @@
+{% extends "student_base.html" %}
+
+{% block title %}Homework{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h2><i class="fas fa-book" style="color: #4a90e2;"></i> Homework Assignments</h2>
+        <p>Assignments for your class</p>
+    </div>
+    
+    {% if homeworks %}
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Due Date</th>
+                <th>Attachment</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for hw in homeworks %}
+            <tr>
+                <td><strong>{{ hw[0] }}</strong></td>
+                <td>{{ hw[1] }}</td>
+                <td><span style="color: #e53e3e; font-weight: 500;">{{ hw[2] }}</span></td>
+                <td>
+                    {% if hw[3] %}
+                    <a href="{{ url_for('static', filename='homework/' ~ hw[3]) }}" download class="btn-download" style="color: #4a90e2; text-decoration: none;"><i class="fas fa-download"></i> Download</a>
+                    {% else %}
+                    <span style="color: #a0aec0;">No attachment</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p style="text-align: center; color: #718096; padding: 2rem;">No homework assigned right now. Great job!</p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "student_base.html" %}
+
+{% block title %}Notes{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h2><i class="fas fa-file-alt" style="color: #ed8936;"></i> Study Notes</h2>
+        <p>Available materials for your class</p>
+    </div>
+    
+    {% if notes %}
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for note in notes %}
+            <tr>
+                <td><strong>{{ note[0] }}</strong></td>
+                <td>
+                    <a href="{{ url_for('static', filename='notes/' ~ note[1]) }}" download class="btn-download" style="color: #ed8936; text-decoration: none;"><i class="fas fa-download"></i> Download</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p style="text-align: center; color: #718096; padding: 2rem;">No study notes available right now.</p>
+    {% endif %}
+</div>
+{% endblock %}
