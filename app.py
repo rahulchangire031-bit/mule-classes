@@ -6,15 +6,34 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-app.config['UPLOAD_FOLDER'] = os.path.join(BASE_DIR, 'static', 'gallery')
-app.config['NOTES_FOLDER'] = os.path.join(BASE_DIR, 'static', 'notes')
-app.config['HOMEWORK_FOLDER'] = os.path.join(BASE_DIR, 'static', 'homework')
+
+# Detect Vercel environment
+IS_VERCEL = os.environ.get('VERCEL', False)
+
+if IS_VERCEL:
+    # Vercel has a read-only filesystem except /tmp
+    DB_PATH = '/tmp/inquiries.db'
+    app.config['UPLOAD_FOLDER'] = '/tmp/gallery'
+    app.config['NOTES_FOLDER'] = '/tmp/notes'
+    app.config['HOMEWORK_FOLDER'] = '/tmp/homework'
+else:
+    DB_PATH = os.path.join(BASE_DIR, 'inquiries.db')
+    app.config['UPLOAD_FOLDER'] = os.path.join(BASE_DIR, 'static', 'gallery')
+    app.config['NOTES_FOLDER'] = os.path.join(BASE_DIR, 'static', 'notes')
+    app.config['HOMEWORK_FOLDER'] = os.path.join(BASE_DIR, 'static', 'homework')
+
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 app.secret_key = 'mule_classes_super_secret_key'  # Required for sessions
 
 for folder in [app.config['UPLOAD_FOLDER'], app.config['NOTES_FOLDER'], app.config['HOMEWORK_FOLDER']]:
     if not os.path.exists(folder):
         os.makedirs(folder)
+
+def get_db():
+    """Get a database connection using the correct path."""
+    conn = sqlite3.connect(DB_PATH)
+    return conn
+
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'webp'}
 
@@ -23,7 +42,7 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 def init_db():
-    conn = sqlite3.connect('inquiries.db')
+    conn = get_db()
     cursor = conn.cursor()
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS inquiries (
@@ -90,7 +109,7 @@ init_db()
 def index():
     images = [img for img in os.listdir(app.config['UPLOAD_FOLDER']) if allowed_file(img)]
     import time
-    mentor_exists = os.path.exists(os.path.join('static', 'mentor.jpg'))
+    mentor_exists = os.path.exists(os.path.join(BASE_DIR, 'static', 'mentor.jpg'))
     ts = time.time()
     
     if request.method == 'POST':
@@ -98,7 +117,7 @@ def index():
         phone = request.form.get('phone')
         student_class = request.form.get('class')
         
-        conn = sqlite3.connect('inquiries.db')
+        conn = get_db()
         cursor = conn.cursor()
         cursor.execute("INSERT INTO inquiries (name, phone, student_class) VALUES (?, ?, ?)", 
                        (name, phone, student_class))
@@ -122,7 +141,7 @@ def admin():
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             return redirect(url_for('admin'))
             
-    conn = sqlite3.connect('inquiries.db')
+    conn = get_db()
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM inquiries ORDER BY timestamp DESC")
     inquiries = cursor.fetchall()
@@ -145,7 +164,7 @@ def login():
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
-        conn = sqlite3.connect('inquiries.db')
+        conn = get_db()
         cursor = conn.cursor()
         cursor.execute("SELECT id, password, name, student_class FROM students WHERE username = ?", (username,))
         student = cursor.fetchone()
@@ -175,7 +194,7 @@ def dashboard():
 def homework():
     if 'student_id' not in session:
         return redirect(url_for('login'))
-    conn = sqlite3.connect('inquiries.db')
+    conn = get_db()
     cursor = conn.cursor()
     cursor.execute("SELECT title, description, due_date, file_path FROM homework WHERE student_class = ?", (session['student_class'],))
     homeworks = cursor.fetchall()
@@ -186,7 +205,7 @@ def homework():
 def attendance():
     if 'student_id' not in session:
         return redirect(url_for('login'))
-    conn = sqlite3.connect('inquiries.db')
+    conn = get_db()
     cursor = conn.cursor()
     cursor.execute("SELECT date, status FROM attendance WHERE student_id = ? ORDER BY date DESC", (session['student_id'],))
     records = cursor.fetchall()
@@ -197,7 +216,7 @@ def attendance():
 def notes():
     if 'student_id' not in session:
         return redirect(url_for('login'))
-    conn = sqlite3.connect('inquiries.db')
+    conn = get_db()
     cursor = conn.cursor()
     cursor.execute("SELECT title, file_path FROM notes WHERE student_class = ?", (session['student_class'],))
     notes_list = cursor.fetchall()
@@ -208,7 +227,7 @@ def notes():
 def marks():
     if 'student_id' not in session:
         return redirect(url_for('login'))
-    conn = sqlite3.connect('inquiries.db')
+    conn = get_db()
     cursor = conn.cursor()
     cursor.execute("SELECT test_name, score, max_score, date FROM test_marks WHERE student_id = ? ORDER BY date DESC", (session['student_id'],))
     test_marks = cursor.fetchall()
@@ -222,7 +241,7 @@ def admin_add_student():
     password = generate_password_hash(request.form.get('password'))
     name = request.form.get('name')
     student_class = request.form.get('student_class')
-    conn = sqlite3.connect('inquiries.db')
+    conn = get_db()
     cursor = conn.cursor()
     try:
         cursor.execute("INSERT INTO students (username, password, name, student_class) VALUES (?, ?, ?, ?)", (username, password, name, student_class))
@@ -246,7 +265,7 @@ def admin_add_homework():
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['HOMEWORK_FOLDER'], filename))
             file_path = filename
-    conn = sqlite3.connect('inquiries.db')
+    conn = get_db()
     cursor = conn.cursor()
     cursor.execute("INSERT INTO homework (title, description, due_date, student_class, file_path) VALUES (?, ?, ?, ?, ?)", (title, description, due_date, student_class, file_path))
     conn.commit()
@@ -258,7 +277,7 @@ def admin_add_attendance():
     student_id = request.form.get('student_id')
     date = request.form.get('date')
     status = request.form.get('status')
-    conn = sqlite3.connect('inquiries.db')
+    conn = get_db()
     cursor = conn.cursor()
     cursor.execute("INSERT INTO attendance (student_id, date, status) VALUES (?, ?, ?)", (student_id, date, status))
     conn.commit()
@@ -276,7 +295,7 @@ def admin_add_note():
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['NOTES_FOLDER'], filename))
             file_path = filename
-    conn = sqlite3.connect('inquiries.db')
+    conn = get_db()
     cursor = conn.cursor()
     cursor.execute("INSERT INTO notes (title, student_class, file_path) VALUES (?, ?, ?)", (title, student_class, file_path))
     conn.commit()
@@ -290,7 +309,7 @@ def admin_add_mark():
     score = request.form.get('score')
     max_score = request.form.get('max_score')
     date = request.form.get('date')
-    conn = sqlite3.connect('inquiries.db')
+    conn = get_db()
     cursor = conn.cursor()
     cursor.execute("INSERT INTO test_marks (student_id, test_name, score, max_score, date) VALUES (?, ?, ?, ?, ?)", (student_id, test_name, score, max_score, date))
     conn.commit()
